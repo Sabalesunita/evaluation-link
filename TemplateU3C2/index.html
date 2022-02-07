@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <!-- <link rel="stylesheet" href="index.css"> -->
+    <style>
+      #navbar{
+      border:1px solid grey;
+      display: flex;
+      justify-content: right;
+  }
+  #right{
+      display: flex;
+      width:50%;
+      justify-content: space-evenly;
+  }
+  #con{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-gap:25px;
+  }
+  
+    </style>
+  </head>
+
+  <body>
+    <div id="navbar">
+      <!--Add menu divs here-->
+       <div id="right">
+         <h3>Menu</h3>
+         <h3>Sign up</h3>
+         <h3>Login</h3>
+         <h3>Cart</h3>
+       </div>
+
+      <div id="count">
+        <button onclick="window.location.href='cart.html'"> Go to Cart</button>
+      </div>
+    </div>
+
+    <div id="menu">
+
+      <!--Show indian dishes here in grid format-->
+      <!-- add an add to cart button to each dish, give it HTML id as 'addtocart' -->
+      <div id="con"></div>
+    </div>
+  </body>
+
+</html>
+<script >
+  var url=`https://www.themealdb.com/api/json/v1/1/filter.php?a=Indian`;
+
+  let menu=document.getElementById("menu");
+async function menulist(){
+try{
+ let res= await fetch(url);
+
+  let data = await res.json();
+   console.log("data:",data);
+ showDishes(data);
+
+}
+catch(error){
+ console.log("error:",error);
+}
+
+}
+menulist();
+
+ function showDishes(data){
+   let con=document.getElementById("con");
+  //  menu.innerHTML="";
+   data.meals.forEach(function (el)
+   {
+   
+    let div=document.createElement("div");
+
+    let image=document.createElement("img");
+    image.src=el.strMealThumb;
+
+    let name=document.createElement("p");
+    name.textContent=el.strmeal;
+
+    let price=document.createElement("p")
+    price.textContent=Math.round(Math.random()*500);
+
+    let addtocart=document.createElement("button")
+    addtocart.textContent="Add to Cart";
+    addtocart.addEventListener("click",function(){
+      addToCart(el);
+    })
+
+ div.append(image,name,price,addtocart);
+ con.append(div);
+
+   });
+   
+ }
+ 
+ function addToCart(el){
+  //  let cart= JSON.parse(localStorage.getItem("cart")) || [];
+  // let cartArr=localStorage.setItem("cart",JSON.stringify("cart"));
+  cart.push(el);
+   alert("Added to Cart");
+  
+}
+
+function count(){
+  let count=document.getElementById("count")
+  count.textContent="cart count"+"="+cartArr.length;
+}
+count()
+  </script>

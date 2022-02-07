@@ -1,0 +1,10 @@
+#navbar{
+      
+    display: flex;
+    justify-content: right;
+}
+#right{
+    display: flex;
+    width:40%;
+    justify-content: space-around;
+}
